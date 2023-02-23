@@ -10,6 +10,8 @@ HangManGame::HangManGame(string gameWord)
     setGameWord(gameWord);
     setAlphabet("abcdefghijklmnopqrstuvwxyz");
     setEveryGuess(initializeEveryGuess());
+    setLives(5);
+    
     return;
 }
 
@@ -46,6 +48,17 @@ string HangManGame::getAlphabet()
     return m_alphabet;
 }
 
+bool HangManGame::setLives(int no_lives)
+{
+    m_lives = no_lives;
+    return true;
+}
+
+int HangManGame::getLives()
+{
+    return m_lives;
+}
+
 bool HangManGame::hasWon()
 {
     string everyGuess = getEveryGuess();
@@ -66,17 +79,19 @@ bool HangManGame::applyGuess(char guess)
     // TODO add removing letter from alphabet
     string everyGuess = getEveryGuess();
     string gameWord = getGameWord();
+    bool match = false;
     
     for (int i = 0; i < gameWord.length(); i++)
     {
         if (gameWord[i] == guess)
         {
             everyGuess[i] = guess;
+            match = true;
         }
     }
 
     setEveryGuess(everyGuess);
-    return true;
+    return match;
 }
 
 string HangManGame::initializeEveryGuess()

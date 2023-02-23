@@ -23,7 +23,15 @@ int main(int argc, char* argv[])
         cout << "Make Your Guess !" << endl;
         cout << game.getEveryGuess() << endl;
         cin >> guess;
-        game.applyGuess(guess);
+        if (!game.applyGuess(guess))
+        {
+            int no_lives = game.getLives();
+            game.setLives(no_lives - 1);
+        }
+        if(game.getLives() == 0){
+            cout << "YOU LOSE!" << endl;
+            return 0;
+        }
     }
 
     cout << "YOU WIN!" << endl;
